@@ -2,26 +2,26 @@ const fs = require('fs-extra');
 const { awscdk , javascript  } = require('projen');
 const { stringify } = require('yaml');
 
-const dependencies = ['fs-extra@10.0.0', 'lodash.get', 'lodash.set', 'uuid'];
+const dependencies = ['fs-extra@10.1.0', 'lodash.get', 'lodash.set', 'uuid'];
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
   authorAddress: 'amplify-cli@amazon.com',
   packageName: '@aws-amplify/cdk-exported-backend',
-  cdkVersion: '1.127.0',
+  cdkVersion: '2.28.1',
   defaultReleaseBranch: 'release',
   name: 'exported-backend',
   bundledDeps: dependencies,
   deps: dependencies,
   npmAccess: javascript.NpmAccess.PUBLIC,
   devDeps: [
-    '@types/fs-extra@^8.1.1',
+    'aws-cdk-migration',
+    '@types/fs-extra@^8.1.2',
     '@types/jest',
     '@types/lodash.get',
     '@types/lodash.set',
     '@types/node',
     '@types/uuid',
     'yaml',
-    '@aws-cdk/core',
   ],
   authorOrganization: true,
   repositoryUrl: 'https://github.com/aws-amplify/amplify-cli-export-construct.git',
@@ -41,22 +41,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
     mavenEndpoint: '${{ secrets.MAVEN_ENDPOINT }}'
   },
   jest: true,
-  cdkDependenciesAsDeps: true,
   minNodeVersion: '14.17.6',
   majorVersion: '0',
   docgen: true,
-  cdkDependencies: [
-    '@aws-cdk/aws-apigateway',
-    '@aws-cdk/aws-appsync',
-    '@aws-cdk/aws-cloudformation',
-    '@aws-cdk/aws-cognito',
-    '@aws-cdk/aws-iam',
-    '@aws-cdk/aws-lambda',
-    '@aws-cdk/aws-s3',
-    '@aws-cdk/aws-s3-assets',
-    '@aws-cdk/aws-s3-deployment',
-    '@aws-cdk/cloudformation-include',
-  ],
   gitignore: [
     'integ-test/amplify-e2e-core',
     'integ-test/amplify-headless-interface',
@@ -81,7 +68,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
   testdir: 'test',
   antitamper: false,
-  cdkAssert: true,
 });
 const unitTest = project.tasks.tryFind('test');
 unitTest.reset();

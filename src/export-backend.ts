@@ -1,8 +1,9 @@
 import {
   CfnInclude,
   IncludedNestedStack,
-} from '@aws-cdk/cloudformation-include';
-import * as cdk from '@aws-cdk/core';
+} from 'aws-cdk-lib/cloudformation-include';
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as _ from 'lodash';
 import { AmplifyExportedBackendProps } from './amplify-exported-backend-props';
@@ -43,7 +44,7 @@ export class AmplifyExportedBackend
    * @param props Initialization properties.
    */
   constructor(
-    scope: cdk.Construct,
+    scope: Construct,
     id: string,
     props: AmplifyExportedBackendProps,
   ) {
